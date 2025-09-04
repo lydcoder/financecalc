@@ -1,0 +1,778 @@
+
+                                <div class="col-sm-3">
+                                    <label>{{ form.debt_balance.label()}}</label>
+                                    {{ form.debt_balance(class="form-control form-control-lg") }}
+                                    {% if form.debt_balance.errors %}
+                                    <div class="error-message mt-3">
+                                    {% for error in form.debt_balance.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                    {% endif %}   
+                                    </div>
+                                    </div>
+                                {% endif %}    
+                                </div>                              
+
+
+                                """try:
+                                session_apr = session['temp_apr']
+                                session_min_pay = session['temp_min_pay']
+                                session_debt_bal = session['temp_debt_bal']
+                    
+                                if session_apr is not None: 
+                                    form.apr.data = session_apr
+                                    form.min_pay.data = session_min_pay
+                                    form.debt_balance.data = session_debt_bal
+                                    print(f"The session is not None, and the values are {session_apr}, {session_min_pay}, {session_debt_bal}")
+                                    #form.debt_balance.data = session_apr
+                                    session.clear()
+                                
+                                else:
+                                    print("The session is actually None")
+                            except:
+                                print("There is no session")
+                            """
+
+
+                            """try:
+                            session_apr = session['temp_apr']
+                            session_min_pay = session['temp_min_pay']
+                            session_debt_bal = session['temp_debt_bal']
+                    
+                            if session_apr is not None: 
+                                form.apr.data = session_apr
+                                form.min_pay.data = session_min_pay
+                                form.debt_balance.data = session_debt_bal
+                                print(f"The session is not None, and the values are {session_apr}, {session_min_pay}, {session_debt_bal}")
+                                #form.debt_balance.data = session_apr
+                                session.clear()
+                            
+                            else:
+                                print("The session is actually None")
+                        except:
+                            print("There is no session")
+                        """
+
+
+        """
+        try:
+            var_sesh_apr = session_exist(session_apr)
+            session_apr = session['temp_apr']
+            session_min_pay = session['temp_min_pay']
+            session_debt_bal = session['temp_debt_bal']
+            
+    
+            if session_apr is not None: 
+                form.apr.data = session_apr
+                form.min_pay.data = session_min_pay
+                form.debt_balance.data = session_debt_bal
+    
+                print(f"The session is not None, and the values are {session_apr}, {session_min_pay}, {session_debt_bal}")
+                #form.debt_balance.data = session_apr
+                #session.clear()
+            
+            else:
+                print("The session is actually None")
+        except: 
+    
+            print("There is no session")
+            #form.apr.data = None
+            #form.min_pay.data = None
+            #form.debt_balance.data = None
+        print("I didn't get past the validation")
+    """
+
+
+    @app.route('/dummy')
+    def dummy():
+        return render_template("dummy.html",session_apr=session['temp_apr'],session_min_pay=session['temp_min_pay'],
+                               session_debt_balance=session['temp_debt_bal'])
+
+{% if form.min_pay == true %}
+<script type="text/javascript">
+    window.onload = function(){
+        document.getElementById('IndexForm').submit();
+    }
+</script>      
+{% endif %}
+
+
+############
+<div class="my_container text-center" style="padding: 10">
+    <div class="d-inline-flex p-5 bg-dark-subtle rounded-2 text-center ">
+            <form id="IndexForm" action="" method="post">
+                <!-- Form content -->
+                <div class="container-md ">
+                    <div class="row justify-content-md-center jumbotron">
+
+                                {{ form.hidden_tag() }}
+                            <div class="row justify-content-md-center">
+                                <div class="col-sm-3 ">
+                                    <label>{{ form.apr.label()}}</label> 
+                                    {{ form.apr(class="form-control form-control-lg") }}
+                                    {% if form.apr.errors %}
+                                    <div class="col">
+                                    {% for error in form.apr.errors %}
+                                        <div class="error-message mt-3">
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                    </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            </div> 
+                        
+                                <div class="col-sm-3 ">
+                                    <label>{{ form.min_pay.label()}}</label> 
+                                    {{ form.min_pay(class="form-control form-control-lg") }}
+                                    {% if form.min_pay.errors %}
+                                    <div class="col">
+                                    {% for error in form.min_pay.errors %}
+                                        <div class="error-message mt-3">
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                    </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                                    </div>
+                                </div> 
+                                <div class="col-sm-3  ">
+                                    <label>{{ form.debt_balance.label()}}</label>
+                                    {{ form.debt_balance(class="form-control form-control-lg") }}
+                                    {% if form.debt_balance.errors %}
+                                    <div class="col">
+                                    {% for error in form.debt_balance.errors %}
+                                        <div class="error-message mt-3">
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                    </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                                </div>
+                            </div>
+               
+                    </div>
+                </div>
+                
+                <div class="row justify-content-md-center mx-auto " style="width: 200px; padding:20px">
+                        {{ form.submit(class="btn btn-primary btn-lg") }}
+                
+
+
+                </div>
+            </form>
+    </div>
+</div>  
+
+
+
+
+@app.route('/pdf/<years_to_pay>/<months_to_pay>/<accrued_total>/<total_payback>/<accrued_percentage>/<comp_simp_display>/<final_princ_perc_comp>/<si_accrued_int>/<accrued_percent_comparison>/<si_years_no>/<si_month_no>/<comp_years>/<final_month>')
+    def pdf(years_to_pay,months_to_pay,accrued_total,total_payback,accrued_percentage,comp_simp_display,final_princ_perc_comp,si_accrued_int,accrued_percent_comparison,si_years_no,si_month_no,comp_years,final_month):
+        rendered = render_template('pdf_GIO.html', years_to_pay=years_to_pay, months_to_pay=months_to_pay,accrued_total=accrued_total, # Render the HTML template with dynamic content passed in via URL parameters
+                                   total_payback=total_payback,comp_simp_display=comp_simp_display,
+                                   final_princ_perc_comp=final_princ_perc_comp,si_accrued_int=si_accrued_int,
+                                   accrued_percent_comparison=accrued_percent_comparison,si_years_no=si_years_no,
+                                   si_month_no=si_month_no,comp_years=comp_years,final_month=final_month)
+        
+        pdf_path = tempfile.mktemp(suffix=".pdf") # Create a temporary file path for the PDF to be stored
+        pdfkit.from_string(rendered, pdf_path) # Generate the PDF from the rendered HTML string and save it to the temporary path
+        with open(pdf_path, 'rb') as f: # Open the generated PDF file and read its contents into memory
+            pdf_data = f.read() 
+        os.remove(pdf_path) # Remove the temporary file as it's no longer needed
+        return Response(pdf_data, headers={ # Return the PDF data as a response with appropriate headers for PDF display in the browser
+            "Content-Type": "application/pdf",
+            "Content-Disposition": "inline; filename=result.pdf"
+        })
+
+
+<div class="container-md ">
+    <!--title div-->
+    <div class="my_container rounded-2 text-center"> 
+            <h3>Credit Card Repayment Calculator</h3>
+    </div>
+
+
+
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1 class="title-embossed">Compound Interest Calculator</h1>
+            </div>
+        </div>
+    </div>
+    <div class="my_container" style="background-color:#f0f0f0">
+        <div class="container text-center" style="padding: 10px;">
+            <div class="row"  style="display: flex; align-items: center;">
+                <div class="col-4 "> <!-- Changed from col-md-4 to col-4 -->
+                    <div class="chart-container" style="position: relative; height:200px; width:200px;">
+                        <img src="{{ image_data1 }}" alt="Image 1">
+                    </div>
+                </div>
+                <div class="col-8">
+                    <div class="lead text-center">
+                            Repayment would take <strong> {{ years_to_pay }}</strong> years and <strong>{{ months_to_pay }}</strong> months
+                        </div>
+                        <div class="lead text-center">Total accrued interest would be <strong>{{ accrued_total }}</strong></div>
+                        <div class="lead text-center">Total to payback is <strong>{{total_payback}} </strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    Why has my index2.html flask page just broke randomly and all the rows have gone and all the containers are messed up
+
+    """
+    @app.route('/pdf/<years_to_pay>/<months_to_pay>/<accrued_total>/<total_payback>/<accrued_percentage>/<comp_simp_display>/<final_princ_perc_comp>/<si_accrued_int>/<accrued_percent_comparison>/<si_years_no>/<si_month_no>/<comp_years>/<final_month>/<principal>/<min_payment>/<pdf_apr>', methods=['GET', 'POST'])
+    def pdf(years_to_pay, months_to_pay, accrued_total, \
+            total_payback, accrued_percentage, comp_simp_display, \
+            final_princ_perc_comp, si_accrued_int, accrued_percent_comparison, \
+            si_years_no, si_month_no, comp_years, final_month, principal, min_payment, pdf_apr):
+        # Check if the request is a POST request
+        if request.method == 'POST':
+            # Extract JSON data from the request
+            data = request.json
+            # Retrieve 'image' data from the JSON
+            image_data1 = data['image1']
+            image_data2 = data['image2']
+            # Get the image data for 'money.png'
+            with open('static/money.png', 'rb') as f:
+                money_image_data = base64.b64encode(f.read()).decode('ascii')
+            # Render an HTML template with the provided data
+            rendered = render_template('pdf_temp.html', image_data1=image_data1, image_data2=image_data2, money_image_data=money_image_data, years_to_pay=years_to_pay, months_to_pay=months_to_pay, accrued_total=accrued_total, total_payback=total_payback, accrued_percentage=accrued_percentage, comp_simp_display=comp_simp_display, final_princ_perc_comp=final_princ_perc_comp, si_accrued_int=si_accrued_int, accrued_percent_comparison=accrued_percent_comparison, si_years_no=si_years_no, si_month_no=si_month_no, comp_years=comp_years, final_month=final_month, principal=principal, min_payment=min_payment, pdf_apr=pdf_apr)
+        else:
+            # Return a message if the request method is not POST
+            return "This route only accepts POST requests"
+        # Create a temporary file path for the PDF file
+        pdf_path = tempfile.mktemp(suffix=".pdf")
+        # Convert the rendered HTML to a PDF and save it to the temporary file path
+        pdfkit.from_string(rendered, pdf_path)
+        # Open the generated PDF file in binary read mode
+        with open(pdf_path, 'rb') as f:
+            # Read the content of the PDF file
+            pdf_data = f.read()
+        # Remove the temporary PDF file from the file system
+        os.remove(pdf_path)
+        # Return the PDF data as a response, with headers specifying the content type and filename
+        return Response(pdf_data, headers={
+            "Content-Type": "application/pdf",
+            "Content-Disposition": "inline; filename=result.pdf"
+        })
+    
+    """
+
+
+    <!--
+<div class="container-md" style="padding: 10">
+
+        <button id="saveAsPdfButton" class="btn btn-primary">Save as PDF</button>
+
+        <script>
+        document.getElementById("saveAsPdfButton").addEventListener("click", function() {
+            var image1 = document.getElementById('myChart').toDataURL("image/png");
+            var image2 = document.getElementById('doughnutChart').toDataURL("image/png");
+            var url = "{{ url_for('pdf', years_to_pay=years_to_pay, months_to_pay=months_to_pay, accrued_total=accrued_total, total_payback=total_payback, accrued_percentage=accrued_percentage, comp_simp_display=comp_simp_display, final_princ_perc_comp=final_princ_perc_comp, si_accrued_int=si_accrued_int, accrued_percent_comparison=accrued_percent_comparison, si_years_no=si_years_no, si_month_no=si_month_no, comp_years=comp_years, final_month=final_month, principal=principal, min_payment=min_payment, pdf_apr=pdf_apr) }}";
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', url, true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.responseType = 'blob';
+            xhr.send(JSON.stringify({
+                image1: image1,
+                image2: image2,
+            }));
+    
+            xhr.onload = function(e) {
+                if (this.status == 200) {
+                    var blob = new Blob([this.response], {type: 'application/pdf'});
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = 'my_chart.pdf';
+                    link.click();
+                }
+            };
+        });
+        </script>
+    
+        </div>
+
+        </div>
+    
+    </div>
+-->
+
+
+
+<script>
+
+    //Chart global  
+    const border_width = 4.5;
+    const line_tension = 0.1;
+    const point_BackgroundColor = "rgba(255, 255, 255, 0.52)";
+    const point_Radius = 3.5;
+    const point_BorderWidth = 2;
+    const point_HoverRadius = 8;
+    const point_HoverBorderWidth = 2;
+    const point_HoverBorderColor = "rgba(31, 31, 31, 0.8)"
+    const point_HoverBackgroundColor = "rgba(238, 238, 238, 0.66)"
+
+    //Labels list const
+    const labels = [{% for item in month_list %} //labels
+                            "{{item}}",
+                            {% endfor %}];
+
+    //Interest list const
+    const interest_list = [ {% for item in interest_list  %} //Interest payment
+                                        {{item}},
+                                        {% endfor %}];
+
+    //Principle payment list const
+    const principle_payment_list = [ {% for item in principle_payment_list  %} //Payment towards principal
+                                        {{ item }},
+                                        {% endfor %}]
+
+    //////////////////////////////////////////////
+    //Interest vs Principle payment chart setup //
+    //////////////////////////////////////////////
+    const data = {
+            labels: labels,//Months
+            datasets: [{
+                
+                //Dataset 1
+                label: 'Interest',
+                backgroundColor: 'rgb(255, 99, 132)',
+               
+                //Styling
+                borderColor: "rgba(254, 75, 75, 1)",
+                borderWidth: border_width,
+                fill: false,
+                lineTension: line_tension,
+                backgroundColor: "rgba(236, 236, 236, 0.52)",
+                //Line border
+                borderCapStyle: 'butt',
+                borderDash: [],
+                borderDashOffset: 0.0,
+                borderJoinStyle: 'miter',
+                //Point 
+                pointBorderColor: "rgba(254, 75, 75, 1)",
+                pointBackgroundColor: point_BackgroundColor,
+                pointBorderWidth: point_BorderWidth,
+                pointRadius: point_Radius,
+                //Point Hover
+                pointHoverRadius: point_HoverRadius,
+                pointHoverBackgroundColor: point_HoverBackgroundColor,
+                pointHoverBorderColor: point_HoverBorderColor,
+                pointHoverBorderWidth: point_HoverBorderWidth,
+                pointHitRadius: 1 , 
+                
+                data: interest_list, //Interest list
+                },
+                {
+                //Dataset 2
+                label: 'Principle',
+                backgroundColor: 'rgba(95, 211, 89, 1)',
+                borderColor: 'rgba(95, 211, 89, 1)',
+                //Styling
+
+                borderWidth: border_width,
+                fill: false,
+                lineTension: line_tension,
+                backgroundColor: "rgba(236, 236, 236, 0.52)",
+                //Line border
+                borderCapStyle: 'butt',
+                borderDash: [],
+                borderDashOffset: 0.0,
+                borderJoinStyle: 'miter',
+                //Point 
+                pointBorderColor: "rgba(95, 211, 89, 1)",
+                pointBackgroundColor: point_BackgroundColor,
+                pointBorderWidth: point_BorderWidth,
+                pointRadius: point_Radius,
+                //Point Hover
+                pointHoverRadius: point_HoverRadius,
+                pointHoverBackgroundColor: point_HoverBackgroundColor,
+                pointHoverBorderColor: point_HoverBorderColor,
+                pointHoverBorderWidth: point_HoverBorderWidth,
+                pointHitRadius: 1 , 
+
+
+                data: principle_payment_list, //Principal payment list
+                }
+            ]
+    };
+  
+    const config = {
+      type: 'line',
+      data: data,
+      
+      options: { //Interest vs Principal chart options
+        animations: {
+            tension: {
+            duration: 10000,
+            easing: 'linear',
+            from: 1,
+            to: 0,
+            loop: true
+            }
+        },
+        plugins: {
+            title: {
+                display: true,
+                text: 'Interest vs Principal Payment',
+                padding: {
+                    top: 10,
+                    bottom: 30
+                }
+            }
+        },//Plugins end
+        scales: {
+            y: {
+                ticks: {
+                    // Include a GBP sign in the ticks
+                    callback: function(value, index, ticks) {
+                        return '£' + value;
+                    }
+                },
+                title: {
+                    display: true,
+                    text: 'Payment'
+                }
+            },//Y End 
+            x: {
+                title: {
+                    display: false,
+                    text: 'Months'
+                }
+            }//X End
+        }//scales end
+      }
+    };
+  </script>
+
+<script>
+    const myChart = new Chart(
+      document.getElementById('myChart'),
+      config
+    );
+  </script>
+
+
+
+
+document.getElementById('saveAsPdfButton').addEventListener('click', function () {
+    html2canvas(document.body, {
+    scrollX: 0,
+    scrollY: 0
+    }).then(canvas => {
+    const imgData = canvas.toDataURL('image/png');
+    
+    // Calculate the PDF width and height based on the canvas dimensions
+    const pdfWidth = canvas.width;
+    const pdfHeight = canvas.height;
+    
+    // Initialize jsPDF with calculated dimensions
+    let pdf = new jspdf.jsPDF({
+        orientation: pdfWidth > pdfHeight ? 'landscape' : 'portrait',
+        unit: 'px',
+        format: [pdfWidth, pdfHeight]
+    });
+    
+    // Add the canvas image to the PDF
+    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+    
+    // Save the PDF
+    pdf.save('webpage.pdf');
+    });
+  });
+
+
+
+  <div class="my_container text-center" style="padding: 10">
+    <div class="d-inline-flex p-5 bg-dark-subtle rounded-2 text-center">
+        <form id="IndexForm" action="" method="post">
+            <!-- Form content -->
+            <div class="container-md">
+                <div class="row justify-content-md-center jumbotron">
+                    {{ form.hidden_tag() }}
+                    <div class="row justify-content-md-center">
+                        <div class="col-sm-3">
+                            <label>{{ form.apr.label() }}</label>
+                            <input type="number" name="{{ form.apr.name }}" value="{{ form.apr.data }}" class="form-control form-control-lg">
+                            {% if form.apr.errors %}
+                            <div class="col">
+                                {% for error in form.apr.errors %}
+                                <div class="error-message mt-3">
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="col-sm-3">
+                    <label>{{ form.min_pay.label() }}</label>
+                    <input type="number" name="{{ form.min_pay.name }}" value="{{ form.min_pay.data }}" class="form-control form-control-lg">
+                    {% if form.min_pay.errors %}
+                    <div class="col">
+                        {% for error in form.min_pay.errors %}
+                        <div class="error-message mt-3">
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            <div class="col-sm-3">
+                <label>{{ form.debt_balance.label() }}</label>
+                <input type="number" name="{{ form.debt_balance.name }}" value="{{ form.debt_balance.data }}" class="form-control form-control-lg">
+                {% if form.debt_balance.errors %}
+                <div class="col">
+                    {% for error in form.debt_balance.errors %}
+                    <div class="error-message mt-3">
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<div class="row justify-content-md-center mx-auto" style="width: 200px; padding:20px ">
+    {{ form.submit(class="btn btn-primary btn-lg") }}    </div>
+</form>
+</div>
+</div>
+</div>   
+
+
+
+
+<div>
+    <div class="lead text-center">If you were to take out a loan, you would pay <strong>{{comp_simp_display}}</strong> less on your debt.</div>
+    <div class="lead text-center">This would mean paying <strong>{{final_princ_perc_comp}}%</strong> less</div>
+    <div class="lead text-center">The interest accumalted on the loan would be a total of <strong>{{si_accrued_int}}</strong> which is <strong>{{accrued_percent_comparison}}%</strong> less than interest on credit card.</div>
+    <div class="lead text-center">The loan would be paid off in <strong>{{si_years_no}}</strong> years and <strong>{{si_month_no}}</strong> months</div>
+    <div class="lead text-center">it would take you <strong>{{comp_years}}</strong> years and <strong>{{final_month}}</strong> months less to pay of your loan. </div>
+</div>
+
+
+.alert-container {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 20px;
+    background: linear-gradient(145deg, #cad8e4, #98c9e0); /* Fun gradient background */
+    border-radius: 10px; /* More pronounced rounded corners */
+    box-shadow: 0 12px 24px rgba(34, 129, 206, 0.2), 0 8px 16px rgba(38, 72, 146, 0.15); /* Deeper 3D shadow for a pop-out effect */
+    border: 1px solid #ffffff; /* White border for a clean finish */
+    font-family: 'Arial', sans-serif;
+    color: #0d1525; /* Dark but soft text color */
+    transform: translateZ(0); /* Ensure smooth rendering */
+    text-align: center; /* Centered text for a more balanced look */
+  }
+  
+  .alert-heading {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 12px;
+    color: #2f3542;
+  }
+
+  .alert-body {
+    font-size: 17px;
+    line-height: 1.6;
+    margin-top: 10px;
+  }
+
+
+
+
+
+NAVBAR CODE
+
+<div class="container text-center">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#"><strong>Navbar</strong></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{{ url_for('index') }}"><strong>about</strong></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"><strong>Link</strong></a>
+            </li>
+  <!--       <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('index') }}"><strong>home</strong></a>
+              </li>-->            
+          </div>
+        </div>
+      </nav>
+    </div>
+
+
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const selectedCurrencySymbol = localStorage.getItem('selectedCurrencySymbol');
+        const accruedTotal = '{{ accrued_total }}'; // Replace with actual value from server-side rendering
+        const totalPayback = '{{ total_payback }}'; // Replace with actual value from server-side rendering
+        const accruedInterest = '{{ accrued_total }}'; // Replace with actual value from server-side rendering
+        const siPriInterest = '{{ si_pri_interest }}'; // Replace with actual value from server-side rendering
+        const siAccruedInt = '{{ si_accrued_int }}'; // Replace with actual value from server-side rendering
+        const compSimpDisplay = '{{ comp_simp_display }}'; // Replace with actual value from server-side rendering
+        const loanAccruedInt = '{{ si_accrued_int }}'; // Replace with actual value from server-side rendering
+
+        if (selectedCurrencySymbol) {
+            document.getElementById('accruedTotal').textContent = `${selectedCurrencySymbol}${accruedTotal}`;
+            document.getElementById('totalPayback').textContent = `${selectedCurrencySymbol}${totalPayback}`;
+            document.getElementById('totalRepayment').textContent = `${selectedCurrencySymbol}${totalPayback}`;
+            document.getElementById('accruedInterest').textContent = `${selectedCurrencySymbol}${accruedInterest}`;
+            document.getElementById('siPriInterest').textContent = `${selectedCurrencySymbol}${siPriInterest}`;
+            document.getElementById('siAccruedInt').textContent = `${selectedCurrencySymbol}${siAccruedInt}`;
+            document.getElementById('compSimpDisplay').textContent = `${selectedCurrencySymbol}${compSimpDisplay}`;
+            document.getElementById('loanAccruedInt').textContent = `${selectedCurrencySymbol}${loanAccruedInt}`;
+        } else {
+            document.getElementById('accruedTotal').textContent = `£${accruedTotal}`; // Default to GBP if no selection
+            document.getElementById('totalPayback').textContent = `£${totalPayback}`; // Default to GBP if no selection
+            document.getElementById('totalRepayment').textContent = `£${totalPayback}`; // Default to GBP if no selection
+            document.getElementById('accruedInterest').textContent = `£${accruedInterest}`; // Default to GBP if no selection
+            document.getElementById('siPriInterest').textContent = `£${siPriInterest}`; // Default to GBP if no selection
+            document.getElementById('siAccruedInt').textContent = `£${siAccruedInt}`; // Default to GBP if no selection
+            document.getElementById('compSimpDisplay').textContent = `£${compSimpDisplay}`; // Default to GBP if no selection
+            document.getElementById('loanAccruedInt').textContent = `£${loanAccruedInt}`; // Default to GBP if no selection
+        }
+    });
+</script>
+
+
+
+
+  .currency-selector form {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.currency-selector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* Ensure the form elements stack vertically */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    width: 100%;
+}
+.currency-selector label {
+    font-size: 16px; /* Reduced font size */
+    margin-bottom: 8px; /* Reduced margin */
+}
+
+.display-currency {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.currency-selector select {
+    padding: 8px; /* Reduced padding */
+    font-size: 14px; /* Reduced font size */
+    margin-bottom: 16px; /* Reduced margin */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    appearance: none; /* Remove default dropdown arrow */
+    background-color: #f9f9f9;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg%20xmlns%3D%22http://www.w3.org/2000/svg%22%20viewBox%3D%220%200%204%205%22><path%20fill%3D%22%23ccc%22%20d%3D%22M2%205L0%203h4z%22/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+}
+
+.currency-selector button {
+    padding: 8px; /* Reduced padding */
+    font-size: 14px; /* Reduced font size */
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+.currency-selector button:hover {
+    background-color: #0056b3;
+}
+/* Display Currency Styles */
+.display-currency {
+    padding: 20px;
+    text-align: center;
+    box-shadow: none;
+    background-color: transparent;
+    border: none;
+}
+
+<div class="center-container">
+    <div class="currency-selector">
+        <label for="currency">Choose your currency:</label>
+        <select name="currency" id="currency">
+            <option value="$">USD - US Dollar</option>
+            <option value="€">EUR - Euro</option>
+            <option value="£">GBP - British Pound</option>
+            <option value="¥">JPY - Japanese Yen</option>
+            <option value="A$">AUD - Australian Dollar</option>
+        </select>
+        <button type="submit">Set Currency</button>
+    </form>
+</div>
+
+<script>
+document.getElementById('currencyForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const selectedCurrencySymbol = document.getElementById('currency').value;
+    console.log('Selected Currency:', selectedCurrencySymbol); // Debugging
+    localStorage.setItem('selectedCurrencySymbol', selectedCurrencySymbol);
+    // Replace with the appropriate action for form submission
+    // window.location.href = 'display.html';
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const storedCurrencySymbol = localStorage.getItem('selectedCurrencySymbol');
+    console.log('Stored Currency Symbol:', storedCurrencySymbol); // Debugging
+    if (storedCurrencySymbol) {
+        document.getElementById('currency').value = storedCurrencySymbol;
+    }
+});
+</script>
+
+{% endblock %}
+
+
+                            Repayment would take <strong> {{ years_to_pay }}</strong> years and <strong>{{ months_to_pay }}</strong> months <!-- Displaying the number of years and months for repayment -->
+                        </div>
+                        <div class="lead text-center">Total accrued interest would be <strong id="accruedTotal">{{ accrued_total }} </strong></div> <!-- Displaying the total accrued interest -->
+                        <div class="lead text-center">Total to payback is <strong id="totalPayback">{{total_payback}} </strong> <!-- Displaying the total amount to pay back -->
+                        </div>
+                    </div>

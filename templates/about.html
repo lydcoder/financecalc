@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container-md ">
+    <!--title div-->
+    <div class="my_container rounded-2 text-center"> 
+            <h3><strong>Debt Consolidation</strong></h3>
+    </div>
+
+<style>
+
+.word-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* adjust the minimum width and number of columns as needed */
+    grid-gap: 10px; /* add some space between the words */
+}
+
+
+.my_container {
+    width: 70%;
+    margin: auto;
+    border: 0px solid #73AD21;
+  }
+
+.error-message {
+    border: 2px solid rgba(255, 0, 0);
+    color: black;
+    font-weight: bold;
+    padding: 3px;
+    background-color: rgb(243, 173, 173);
+    border-radius: 5px;
+}
+
+</style>
+
+
+<div class="my_container text-center" style="padding: 10">
+    <div class="d-inline-flex p-5 bg-dark-subtle rounded-2 text-center ">
+            <form  action="" method="post" novalidate>
+                <!-- Form content -->
+                <div class="container-md ">
+                    <div class="row justify-content-md-center jumbotron">
+
+                                {{ form.hidden_tag() }}
+                            <div class="row justify-content-md-center">
+                    
+                                <div class="col-sm-3 ">
+                                    <label>{{ form.apr.label()}}</label> 
+                                    {{ form.apr(class="form-control form-control-lg") }}
+                                    {% if form.apr.errors %}
+                                    <div class="col">
+                                    {% for error in form.apr.errors %}
+                                    <div class="error-message mt-3">
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                    {% if error_msg %}
+                                    <p>{{ error_msg }}</p>
+                                    {% endif %}
+                                    </div>
+                                    </div>
+                                {% endif %}
+
+                                </div> 
+                                
+
+                                <div class="col-sm-3 ">
+                                    <label>{{ form.min_pay.label()}}</label> 
+                                    {{ form.min_pay(class="form-control form-control-lg") }}
+                                    {% if form.min_pay.errors %}
+                                    <div class="col">
+                                    <div class="error-message mt-3">
+                                    {% for error in form.min_pay.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                    </div>
+                                    </div>
+                                {% endif %}   
+                                
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <label>{{ form.debt_balance.label()}}</label>
+                                    {{ form.debt_balance(class="form-control form-control-lg") }}
+                                    {% if form.debt_balance.errors %}
+                                    <div class="error-message mt-3">
+                                    {% for error in form.debt_balance.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                    </div>
+                                    </div>
+                                {% endif %}    
+                                </div>                              
+
+                    </div>
+                </div>
+                
+                <div class="row justify-content-md-center mx-auto" style="width: 200px; padding: 10px">
+                        {{ form.submit(class="btn btn-primary btn-lg") }}
+                  
+                </div>
+            </form>
+    </div>
+</div> 
+
+{% endblock %}
+
+
