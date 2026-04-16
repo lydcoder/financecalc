@@ -391,7 +391,7 @@ class DebtDataForm(FlaskForm):
         if field.data <= 0:
             raise validators.ValidationError('Cannot be 0, or less than 0')
         elif field.data > 80:
-            raise validators.ValidationError('Cannot be more than 500%')
+            raise validators.ValidationError('Cannot be more than 80%')
         
     def validate_all(form, field):
         if field.data == None:
