@@ -1,22 +1,11 @@
-from flask import Flask, redirect,render_template, request, session, url_for, make_response, send_file, Response,render_template_string
-from flask_wtf import FlaskForm,Form
-from wtforms import StringField, IntegerField, SubmitField, FloatField, SelectField
-from wtforms.validators import DataRequired,Email,InputRequired, NumberRange, ValidationError, EqualTo
-from wtforms.fields.simple import HiddenField
+from flask import Flask ,render_template, request
+from flask_wtf import FlaskForm
+from wtforms import IntegerField, SubmitField, FloatField, SelectField
+from wtforms.validators import InputRequired
 from wtforms import validators
-import math
-from flask import send_file
-#from django import forms
 from myfunctions import *
 import re
-#import pdfkit 
-#import tempfile
-#import os
-#import base64
-#from selenium import webdriver
-#from PIL import Image
-#from io import BytesIO
-
+import os
 
 #app = Flask(__name__)
 
@@ -391,7 +380,7 @@ class DebtDataForm(FlaskForm):
         if field.data <= 0:
             raise validators.ValidationError('Cannot be 0, or less than 0')
         elif field.data > 80:
-            raise validators.ValidationError('Cannot be more than 80%')
+            raise validators.ValidationError('Cannot be more than 500%')
         
     def validate_all(form, field):
         if field.data == None:
@@ -416,9 +405,8 @@ class DebtDataForm(FlaskForm):
 
 
 app = Flask(__name__) #creat app
-app.config['SECRET_KEY'] = '#ZwyaF$FZ7Y8gAW6!nD$S&Ih3fwbisku'
 
-
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-secret-key')
 @app.route('/', methods=['GET', 'POST'])
 def index():
     form = DebtDataForm(request.form)
@@ -492,7 +480,6 @@ def index():
             
             #dog_poo = accrued_int_perc_diff(int(accrued_interest_list[-1]), int(si_accrued_int[-1]))
             accrued_percent_comparison = round(percentage_diff(int(accrued_interest_list[-1]), si_accrued_int),2)
-            print(f" DOGGGGGGGGG {accrued_percent_comparison}")
             comp_simp_display = round(comp_simp_total_comparison(accrued_interest_list[-2] + principal,si_pri_interest),2)
 
             
@@ -506,13 +493,10 @@ def index():
 
             accrued_comparison = accrued_comp_perc(accrued_interest_list[-2],si_accrued_int) # var that tells us the percentage diff between acrrued interest
             final_accrued_comparison = round(accrued_comparison,2)
-            #print(f"COMPPPPPPPPPPP {round(accrued_comparison,2)}")
             principal_perc_comp = princ_comp_perc(round(accrued_interest_list[-2] + principal, 2),si_pri_interest)
             final_princ_perc_comp = round(principal_perc_comp,2)
 
             validate_greater_int = compare_values(total_payback,si_pri_interest)
-            #print(f"I AM IN LOVEEEEEEEEEE {principal_perc_comp}")
-            #form = DebtDataForm(formdata=None)
             pdf_apr = form.apr.data
 
 
